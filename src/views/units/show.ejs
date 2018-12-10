@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% console.log(resources) %>
+      <a
+        href="/units"
+        class="btn btn-outline-info"
+        style="margin-bottom: 19px; margin-left: 5px"
+      >
+        <i class="fas fa-arrow-left"></i
+      ></a>
+      <h1 style="display:inline-block">units</h1>
+
+      <% resources.forEach((resource) => { %>
+      <!-- #2 -->
+      <li class="list-group-item">
+        <a href="/units/<%= resource.unit %>/<%= resource._id %>">
+          <%= resource.name %>
+        </a>
+      </li>
+      <% }) %>
+
+      <p>
+        Want to contribute something new?
+        <a href="/resources/new"
+          ><i class="fas fa-lg fa-plus-square" id="plus-icon"></i
+        ></a>
+      </p>
+
+      <ul class="list-group">
+        <!-- //shows all resources for admin -->
+
+        <!--
+          //shows resources only if authored by user or they are public
+          //to see collaborations as premium user, must click on 'see collaborations'
+        -->
+      </ul>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>
