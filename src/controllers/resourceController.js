@@ -1,6 +1,6 @@
 const resourceQueries = require('../db/queries.resources');
 const fs = require('fs');
-const convertTimeStamp = require('../helpers/convertTimestamp');
+const convertTimeStamp = require('../helpers/convertTimeStamp');
 const pdfjs = require('pdfjs-dist');
 
 module.exports = {
