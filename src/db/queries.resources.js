@@ -20,5 +20,13 @@ module.exports = {
     return Resource.find({ _id: id }).then(resource => {
       callback(null, resource[0]);
     });
+  },
+  addResource(newResource, callback) {
+    new Resource(newResource)
+      .save()
+      .then(resource => {
+        callback(null, resource);
+      })
+      .catch(err => callback(err));
   }
 };

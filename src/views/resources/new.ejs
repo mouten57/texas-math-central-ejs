@@ -10,39 +10,60 @@
     <main class="container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1>New Wiki</h1>
+      <h1>New Resource</h1>
 
-      <form action="/wikis/create" method="post">
+      <form
+        action="/resources/create"
+        method="post"
+        enctype="multipart/form-data"
+      >
         <div class="form-group">
-          <label for="title">Wiki title</label>
+          <label for="title">Resource Name</label>
           <input
             type="text"
             class="form-control"
-            name="title"
-            aria-describedby="titleHelp"
-            placeholder="Enter title"
+            name="name"
+            aria-describedby="nameHelp"
+            placeholder="Enter name"
           />
         </div>
         <div class="form-group">
-          <label for="body">Wiki body</label>
-          <textarea
-            rows="4"
-            class="form-control"
-            name="body"
-            placeholder="Enter body"
-          ></textarea>
-        </div>
-
-        <% if(currentUser && (currentUser.role === 'premium' || currentUser.role
-        === 'admin')) { %>
-        <div class="form-group">
-          <label for="private">Wiki Status</label>
-          <select class="form-control" name="private">
-            <option value="false">Public</option>
-            <option value="true" selected>Private</option>
+          <label for="body">Unit</label>
+          <select label="unit" name="unit">
+            <option value="boy" label="boy">Beginning of Year</option>
           </select>
         </div>
-        <% } %>
+        <div class="form-group">
+          <label for="body">Type</label>
+          <select label="type" name="type">
+            <option value="Google Doc" label="Google Doc">Google Doc</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="body">Link</label>
+          <input
+            type="text"
+            class="form-control"
+            name="link"
+            value="http://"
+            aria-describedby="linkHelp"
+          />
+        </div>
+        <div class="form-group">
+          <label for="body">Description</label>
+          <textarea
+            name="description"
+            class="form-control"
+            aria-describedby="descriptionHelp"
+            placeholder="Enter description"
+          ></textarea>
+        </div>
+        <div>
+          <label>
+            Upload File <small>(2MB maximum)</small>
+            <div><input type="file" name="file" /></div>
+          </label>
+        </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

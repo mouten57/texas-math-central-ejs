@@ -10,10 +10,8 @@ const uploadSchema = new Schema({
   link: String,
   description: String,
   _user: [userSchema],
-  dateSent: Date,
-  file_name: String,
-  file_type: String,
-  file_path: String,
+  created: String,
+  file: Object,
   file_data: Buffer,
   comments: [resourceSchema]
 });
