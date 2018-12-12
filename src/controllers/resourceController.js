@@ -31,15 +31,6 @@ module.exports = {
           file: req.file,
           s3Link: link
         };
-        if (req.file !== undefined) {
-          if (req.file.mimetype == 'image/jpeg') {
-            //make sure it gets processed image
-            newResource.file_data = fs.readFileSync('./src/uploads/output.jpg');
-          } else {
-            //every other upload
-            newResource.file_data = fs.readFileSync(req.file.path);
-          }
-        }
 
         resourceQueries.addResource(newResource, (err, resource) => {
           if (err) {

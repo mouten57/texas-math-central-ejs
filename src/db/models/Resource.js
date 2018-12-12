@@ -12,7 +12,6 @@ const uploadSchema = new Schema({
   _user: [userSchema],
   created: String,
   file: Object,
-  file_data: String,
   comments: [resourceSchema],
   s3Link: String
 });
