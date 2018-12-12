@@ -2,7 +2,7 @@ const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
 
-var maxSize = 2 * 1024 * 1024; //1mb
+var maxSize = 5 * 1024 * 1024; //1mb
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

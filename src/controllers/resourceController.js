@@ -2,7 +2,7 @@ const resourceQueries = require('../db/queries.resources');
 const fs = require('fs');
 const convertTimeStamp = require('../helpers/convertTimeStamp');
 const pdfjs = require('pdfjs-dist');
-
+const s3 = require('../config/aws-config');
 module.exports = {
   index(req, res, next) {
     resourceQueries.getUnitResources(req.params.unit, (err, resources) => {
@@ -17,39 +17,64 @@ module.exports = {
     res.render('resources/new');
   },
   create(req, res, next) {
-    console.log(req.file, 'req.file line 20 resourceController');
-    let newResource = {
-      name: req.body.name,
-      unit: req.body.unit,
-      type: req.body.type,
-      link: req.body.link,
-      description: req.body.description,
-      _user: req.user, //saves entire user profile so we can access name, nickname, photo easily on comment form
-      created: convertTimeStamp(Date.now()),
-      file: req.file
-    };
+    ////NEED TO HANDLE NON-FILE
     if (req.file !== undefined) {
-      if (req.file.mimetype == 'image/jpeg') {
-        //make sure it gets processed image
-        newResource.file_data = fs.readFileSync('./src/uploads/output.jpg');
-      } else {
-        //every other upload
-        newResource.file_data = fs.readFileSync(req.file.path);
-      }
-    }
+      s3.upload(req.file, (err, link) => {
+        let newResource = {
+          name: req.body.name,
+          unit: req.body.unit,
+          type: req.body.type,
+          link: req.body.link,
+          description: req.body.description,
+          _user: req.user,
+          created: convertTimeStamp(Date.now()),
+          file: req.file,
+          s3Link: link
+        };
+        if (req.file !== undefined) {
+          if (req.file.mimetype == 'image/jpeg') {
+            //make sure it gets processed image
+            newResource.file_data = fs.readFileSync('./src/uploads/output.jpg');
+          } else {
+            //every other upload
+            newResource.file_data = fs.readFileSync(req.file.path);
+          }
+        }
 
-    resourceQueries.addResource(newResource, (err, resource) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.redirect(303, `/units/${resource.unit}/${resource._id}`);
-      }
-    });
-    //delete upload
-    fs.unlink(req.file.path, err => {
-      if (err) throw err;
-      console.log(`${req.file.originalname} was deleted.`);
-    });
+        resourceQueries.addResource(newResource, (err, resource) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.redirect(303, `/units/${resource.unit}/${resource._id}`);
+          }
+        });
+        //delete upload
+        if (req.file !== undefined) {
+          fs.unlink(req.file.path, err => {
+            if (err) throw err;
+            console.log(`${req.file.originalname} was deleted.`);
+          });
+        }
+      });
+    } else {
+      //no file. there has to be a better way to do this
+      let newResource = {
+        name: req.body.name,
+        unit: req.body.unit,
+        type: req.body.type,
+        link: req.body.link,
+        description: req.body.description,
+        _user: req.user,
+        created: convertTimeStamp(Date.now())
+      };
+      resourceQueries.addResource(newResource, (err, resource) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect(303, `/units/${resource.unit}/${resource._id}`);
+        }
+      });
+    }
   },
   show(req, res, next) {
     resourceQueries.getResource(req.params.resourceId, (err, resource) => {

@@ -13,20 +13,41 @@
       <h1><%= resource.name %></h1>
       <div>Description: "<%= resource.description %>"</div>
       <div>Type: <%= resource.type %> </div>
+      <% if((resource.link).length < 8 ) { %>
+        <div>Link: none :( </div>
+        <% } else { %> 
       <div>Link: <a target="_blank" href='<%=resource.link %>'>Click Here</a></div>
-      <div>Download: 
-        <% if(resource.dl) { %>
-        <a href='<%= resource.dl %>'> Click Here</a>
-          <% } else { %>
-            <p style='display: inline'><i>Not available :(</i></p>
+      <% } %>
+      
+      
+      <div>Preview: 
+        <% if(resource.s3Link) { %>
+          <% const imageTypes = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png'] %>
+          <% if(imageTypes.includes(resource.file.mimetype)) { %>
+            <a href=<%= resource.s3Link %>><img width='300px'  src=<%= resource.s3Link %> /></a>
+            <% } else { %>
+        <iframe width='100%' height='500px' src='https://docs.google.com/viewer?url=<%= resource.s3Link %>&embedded=true'></iframe>
+        <% } %>  
+        <% } else { %>
+            <p style='display: inline'><i>Preview Not available :(</i></p>
             <% } %>
       
       </div>
       
+      
+      
+      
+     
+      
+      
 
 
 
-
+<div>
+ 
+    
+ 
+</div>
     <% include ../static/partials/baseScripts.ejs %>
   </body>
 </html>
