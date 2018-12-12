@@ -3,18 +3,21 @@ const fs = require('fs');
 const convertTimeStamp = require('../helpers/convertTimeStamp');
 const pdfjs = require('pdfjs-dist');
 const s3 = require('../config/aws-config');
+const unitFields = require('../data/unitFields');
+
 module.exports = {
   index(req, res, next) {
     resourceQueries.getUnitResources(req.params.unit, (err, resources) => {
       if (err || resources == null) {
         res.redirect(404, '/');
       } else {
-        res.render('units/show', { resources });
+        let header = req.params.unit;
+        res.render('units/show', { resources, header });
       }
     });
   },
   new(req, res, next) {
-    res.render('resources/new');
+    res.render('resources/new', { unitFields });
   },
   create(req, res, next) {
     ////NEED TO HANDLE NON-FILE
@@ -76,15 +79,18 @@ module.exports = {
           let downloadLink = `/units/${resource.unit}/${resource._id}/download`;
           resource.dl = downloadLink;
         }
+        if (resource.type === 'Google Doc') {
+          let str = resource.link;
+          var driveLink = str.split('=')[1];
+        }
 
-        res.render('resources/show', { resource });
+        res.render('resources/show', { resource, driveLink });
       }
     });
   },
 
   download(req, res, next) {
     resourceQueries.getResource(req.params.resourceId, (err, resource) => {
-      console.log(resource);
       if (err || resource == null) {
         res.redirect(404, '/');
       } else {

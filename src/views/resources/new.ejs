@@ -25,18 +25,25 @@
             name="name"
             aria-describedby="nameHelp"
             placeholder="Enter name"
+            required
           />
         </div>
         <div class="form-group">
           <label for="body">Unit</label>
           <select label="unit" name="unit">
-            <option value="boy" label="boy">Beginning of Year</option>
+            <% unitFields.map(unit => { %> <option value="<%= unit.param %>"
+            label="<%= unit.name %>" /> <% }) %> 
           </select>
         </div>
         <div class="form-group">
           <label for="body">Type</label>
           <select label="type" name="type">
             <option value="Google Doc" label="Google Doc">Google Doc</option>
+            <option value="Google Folder" label="Google Folder"
+              >Google Folder</option
+            >
+            <option value="File" label="File">File</option>
+            <option value="Link" label="Just a link!">Just a link!</option>
           </select>
         </div>
         <div class="form-group">
@@ -45,9 +52,13 @@
             type="text"
             class="form-control"
             name="link"
-            value="http://"
+            placeholder="http://"
             aria-describedby="linkHelp"
           />
+          <small
+            >If adding a google doc, make sure you get it from Google by
+            right-clicking the file, then selecting "Get shareable link"</small
+          >
         </div>
         <div class="form-group">
           <label for="body">Description</label>
