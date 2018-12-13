@@ -24,7 +24,7 @@
         <% if(resource.s3Link) { %>
           <% const imageTypes = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png'] %>
           <% if(imageTypes.includes(resource.file.mimetype)) { %>
-            <a href=<%= resource.s3Link %>><img width='300px'  src=<%= resource.s3Link %> /></a>
+            <a href=<%= resource.s3Link %>><img height='700px'  src=<%= resource.s3Link %> /></a>
            
            
             <% } else { %>
