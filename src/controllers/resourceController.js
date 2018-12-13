@@ -16,7 +16,7 @@ module.exports = {
     });
   },
   new(req, res, next) {
-    res.render('resources/new', { unitFields });
+    res.render('resources/new');
   },
   create(req, res, next) {
     ////NEED TO HANDLE NON-FILE
