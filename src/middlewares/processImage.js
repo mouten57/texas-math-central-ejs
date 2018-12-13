@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
       promises.push(
         new Promise((resolve, reject) => {
           sharp(image)
-            .resize({ height: 400 })
+            .resize({ height: 700 })
             .toFile('src/uploads/output.jpg', err => {
               if (err) throw err;
 
