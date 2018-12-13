@@ -79,7 +79,7 @@ module.exports = {
           let downloadLink = `/units/${resource.unit}/${resource._id}/download`;
           resource.dl = downloadLink;
         }
-        if (resource.type === 'Google Doc') {
+        if (resource.type === 'Google Doc' && resource.link.length > 7) {
           let link = resource.link;
           var v1Identifier = link.split('/')[3].slice(0, 8);
 
