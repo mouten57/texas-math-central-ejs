@@ -80,8 +80,13 @@ module.exports = {
           resource.dl = downloadLink;
         }
         if (resource.type === 'Google Doc') {
-          let str = resource.link;
-          var driveLink = str.split('=')[1];
+          let link = resource.link;
+          var v1Identifier = link.split('/')[3].slice(0, 8);
+
+          var driveLink =
+            v1Identifier == 'open?id='
+              ? link.split('=')[1]
+              : link.split('/')[5];
         }
 
         res.render('resources/show', { resource, driveLink });
