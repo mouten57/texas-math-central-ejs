@@ -3,7 +3,6 @@ const fs = require('fs');
 const convertTimeStamp = require('../helpers/convertTimeStamp');
 const pdfjs = require('pdfjs-dist');
 const s3 = require('../config/aws-config');
-const unitFields = require('../data/unitFields');
 
 module.exports = {
   index(req, res, next) {
