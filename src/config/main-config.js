@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 //important to call model first, before I try to run passport
 require('../db/models/User');
 require('../db/models/Resource');
+require('../db/models/Comment');
 
 const keys = require('./keys/keys');
 require('./passport-config');

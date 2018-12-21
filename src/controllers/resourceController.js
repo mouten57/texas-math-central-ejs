@@ -1,7 +1,6 @@
 const resourceQueries = require('../db/queries.resources');
 const fs = require('fs');
 const convertTimeStamp = require('../helpers/convertTimeStamp');
-const pdfjs = require('pdfjs-dist');
 const s3 = require('../config/aws-config');
 
 module.exports = {

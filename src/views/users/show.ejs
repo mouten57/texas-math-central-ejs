@@ -12,19 +12,49 @@
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
-        <h1 class="display-5">This is the PROFILE page.</h1>
-        <p class="lead">
-          Designed and created with one goal in mind: to get all the best math
-          resources in one location.
-        </p>
+        <h1 class="display-5">
+          <%= `${result.user.nickname}'s profile page` %>
+        </h1>
+
+        <% console.log(result) %>
         <p>
           Am I logged in?....
-          <strong> <%= typeof currentUser !== 'undefined' %></strong>
+          <strong>
+            <%= (typeof currentUser !== 'undefined') ? "YES" : "NO" %></strong
+          >
         </p>
       </header>
 
       <!-- Page Features -->
-      <section class="row text-center"></section>
+
+      <hr />
+      <h3>Latest Resources</h3>
+
+      <ul class="list-unstyled">
+        <% if(result.resources) { %> <% result.resources.forEach((resource) => {
+        %>
+
+        <li>
+          <a href="/units/<%= resource.unit %>/posts/<%= resource._id %>">
+            <%= resource.name %>
+          </a>
+        </li>
+        <% }) %> <% } %>
+      </ul>
+      <hr />
+      <h3>Latest Comments</h3>
+      <ul class="list-unstyled">
+        <% if(result.comments) { %> <% result.comments.forEach((comment) => { %>
+        <li>
+          <span>Resource: </span>
+            <%= comment.body %>
+          </a>
+          <p>Comment: <%= comment.body %></p>
+        </li>
+        <hr />
+        <% }) %> <% } %>
+      </ul>
+
       <!-- /.row -->
     </main>
     <!-- /.container -->

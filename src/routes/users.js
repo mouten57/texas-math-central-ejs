@@ -1,6 +1,6 @@
 const validation = require('./validation');
 
-// const userController = require('../controllers/userController');
+const userController = require('../controllers/userController');
 
 module.exports = app => {
   app.get('/users/sign_up', (req, res) => {
@@ -18,7 +18,5 @@ module.exports = app => {
   app.get('/users/sign_out', (req, res) => {
     res.send('GET sign in');
   });
-  app.get('/profile', (req, res) => {
-    res.render('users/show');
-  });
+  app.get('/profile', userController.show);
 };
