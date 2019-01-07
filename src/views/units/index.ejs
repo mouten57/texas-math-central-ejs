@@ -8,13 +8,11 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-      <a
-        href="/"
-        class="btn btn-outline-info"
-        style="margin-bottom: 19px; margin-left: 5px"
-      >
-        <i class="fas fa-arrow-left"></i
-      ></a>
+      <a href="/"
+        ><button style="display: inline-block" class="circular ui icon button">
+          <i class="arrow left icon"></i>
+        </button>
+      </a>
       <h1 style="display:inline-block">units</h1>
 
       <% units.forEach((unit) => { %>
@@ -24,12 +22,17 @@
       </li>
       <% }) %>
 
-      <p>
+      <h4 style="margin-top: 10px; display: inline-block">
         Want to contribute something new?
-        <a href="/resources/new"
-          ><i class="fas fa-lg fa-plus-square" id="plus-icon"></i
-        ></a>
-      </p>
+      </h4>
+      <a href="/resources/new">
+        <button
+          style="display: inline-block;"
+          class="mini ui green icon button"
+        >
+          <i class="plus block icon"></i>
+        </button>
+      </a>
 
       <ul class="list-group">
         <!-- //shows all resources for admin -->

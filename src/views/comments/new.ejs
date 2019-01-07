@@ -1,0 +1,18 @@
+<form
+  class="ui reply form"
+  action="/api/units/<%= resource.unit %>/<%= resource._id %>/comments/create"
+  method="post"
+>
+  <label for="body">New Comment</label>
+  <div class="field">
+    <textarea rows="2" name="body" placeholder="Enter comment"></textarea>
+  </div>
+
+  <button
+    type="submit"
+    style="margin-bottom: 20px"
+    class="ui blue labeled submit icon button"
+  >
+    <i class="icon edit"></i> Submit
+  </button>
+</form>

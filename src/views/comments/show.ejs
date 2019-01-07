@@ -1,0 +1,25 @@
+<% if(comment) { %> <% console.log(comment) %>
+
+<div class="comment">
+  <a class="avatar"> <img src=<%= comment._user.image %>> </a>
+  <div class="content">
+    <form
+      style="display:initial; "
+      action="/api/units/<%= resource.unit %>/<%= resource._id %>/comments/<%= comment._id %>/destroy"
+      method="post"
+    >
+      <button
+        type="submit"
+        class="btn btn btn-sm btn-outline-danger"
+        style="float: right; "
+      >
+        Delete
+      </button>
+    </form>
+    <a class="author"><%= comment._user.nickname %></a>
+    <div class="metadata"><span class="date"><%= comment.posted %></span></div>
+    <div class="text"><%= comment.body %></div>
+  </div>
+</div>
+
+<% } %>

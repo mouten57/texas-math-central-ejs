@@ -18,7 +18,6 @@ module.exports = {
     res.render('resources/new');
   },
   create(req, res, next) {
-    ////NEED TO HANDLE NON-FILE
     if (req.file !== undefined) {
       s3.upload(req.file, (err, link) => {
         let newResource = {
@@ -69,7 +68,9 @@ module.exports = {
     }
   },
   show(req, res, next) {
-    resourceQueries.getResource(req.params.resourceId, (err, resource) => {
+    resourceQueries.getResource(req.params.resourceId, (err, result) => {
+      let resource = result.resource;
+      let comments = result.comments;
       if (err || resource == null) {
         res.redirect(404, '/');
       } else {
@@ -87,7 +88,7 @@ module.exports = {
               : link.split('/')[5];
         }
 
-        res.render('resources/show', { resource, driveLink });
+        res.render('resources/show', { resource, driveLink, comments });
       }
     });
   },

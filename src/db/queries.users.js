@@ -26,10 +26,11 @@ module.exports = {
           result['resources'] = resources;
 
           Comment.find({ _user: user })
-          .then(comments => {
-            result['comments'] = comments;
-            callback(null, result);
-          });
+            .populate('resource_id')
+            .then(comments => {
+              result['comments'] = comments;
+              callback(null, result);
+            });
         });
       }
     });

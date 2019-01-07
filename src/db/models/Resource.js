@@ -10,26 +10,7 @@ const resourceSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'users' },
   created: String,
   file: Object,
-  comments: [{ type: Schema.Types.ObjectId, ref: 'comments' }],
   s3Link: String
 });
 
 mongoose.model('resources', resourceSchema);
-
-/////THE ID OF THE COMMENT NEEDS TO GET PUSHED TO THE 'COMMENTS' SECTION
-///OF THE RESOURCE-COMMENTS SECTION
-//..AND USER COMMENTS SECTION
-
-//ON CREATE COMMENT, ALSO UPDATE RESOURCE COMMENTS?
-
-/*LOOKING FOR SOMETHING LIKE THIS
- .then(comment => {
-        result['comment'] = comment;
-        Resource.findOneAndUpdate(
-          { _id: comment.resource_id },
-          { $push: { comments: comment } },
-          { new: true }
-        );
-        callback(null, comment);
-        
-        */

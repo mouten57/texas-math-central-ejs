@@ -7,10 +7,13 @@
   <body>
     <% include ../static/partials/navbar.ejs %>
 
-    <main class="container">
+    <main class="ui container">
       <% include ../static/partials/messages.ejs %>
-     <% console.log(resource) %>
-      <h1><%= resource.name %></h1>
+    
+      <a href='/units/<%= resource.unit %>/'><button style='display: inline-block' class='circular ui icon button'>
+          <i class='arrow left icon'></i>
+        </button> </a>
+        <h1 style='display: inline-block'><%= resource.name %></h1>
       <div>Description: "<%= resource.description %>"</div>
       <div>Type: <%= resource.type %> </div>
       <% if((resource.link).length < 8 ) { %>
@@ -30,19 +33,36 @@
            
             <% } else { %>
               
-        <iframe width='100%' height='500px' src='https://docs.google.com/viewer?url=<%= resource.s3Link %>&embedded=true'></iframe>
-      <p><a href=<%=resource.s3Link %> />Download</p>
+        <iframe width='100%' height='350px' src='https://docs.google.com/viewer?url=<%= resource.s3Link %>&embedded=true'></iframe>
+      <p><a href=<%=resource.s3Link %>>Download</a></p>
         <% } %>  
         <% } else if(resource.type === "Google Doc") { %>
           
         <iframe
         src="https://docs.google.com/viewer?srcid=<%= driveLink %>&pid=explorer&efh=false&a=v&chrome=false&embedded=true"
-        width="100%" height="500px"></iframe>
+        width="100%" height="350px"></iframe>
         <% } else { %>
             <p style='display: inline'><i>Preview Not available :(</i></p>
             <% } %>
       
       </div>
+      
+    <section id='comment-list' style='width: 100%'>
+      <% if(comments.length !== 0) { %>
+        <div class="ui comments">
+          <h3 class="ui dividing header" style='margin-top: 10px'>Comments</h3>
+      <% comments.forEach((comment) => { %>
+    
+      <%- include('../comments/show.ejs', {comment}) %>
+      <% }) %>
+      </div>
+      <% } %>
+    <section id="comment-form">
+        <% if(currentUser) { %>
+        <% include ../comments/new.ejs %>
+        <% } %>
+      </section>
+    </section>
       
       
       

@@ -8,13 +8,11 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-      <a
-        href="/units"
-        class="btn btn-outline-info"
-        style="margin-bottom: 19px; margin-left: 5px"
-      >
-        <i class="fas fa-arrow-left"></i
-      ></a>
+      <a href="/units/"
+        ><button style="display: inline-block" class="circular ui icon button">
+          <i class="arrow left icon"></i>
+        </button>
+      </a>
       <h1 style="display:inline-block"><%= header %></h1>
       <% resources.forEach((resource) => { %>
       <!-- #2 -->

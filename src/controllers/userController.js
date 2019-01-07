@@ -2,7 +2,6 @@ const userQueries = require('../db/queries.users.js');
 
 module.exports = {
   show(req, res, next) {
-    console.log(req.user);
     userQueries.getUser(req.user, (err, result) => {
       if (err || result.user === undefined) {
         req.flash('notice', 'No user found with that ID.');

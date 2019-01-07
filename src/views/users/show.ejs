@@ -12,17 +12,11 @@
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
-        <h1 class="display-5">
+        <h1 class="display-5" style="display: inline; margin-left: 5px">
           <%= `${result.user.nickname}'s profile page` %>
         </h1>
 
-        <% console.log(result) %>
-        <p>
-          Am I logged in?....
-          <strong>
-            <%= (typeof currentUser !== 'undefined') ? "YES" : "NO" %></strong
-          >
-        </p>
+        <p></p>
       </header>
 
       <!-- Page Features -->
@@ -45,9 +39,13 @@
       <h3>Latest Comments</h3>
       <ul class="list-unstyled">
         <% if(result.comments) { %> <% result.comments.forEach((comment) => { %>
+        <% console.log(comment) %>
         <li>
           <span>Resource: </span>
-            <%= comment.body %>
+          <a
+            href="/units/<%= comment.resource_id.unit %>/<%= comment.resource_id._id %>"
+          >
+            <%= comment.resource_id.name %>
           </a>
           <p>Comment: <%= comment.body %></p>
         </li>
