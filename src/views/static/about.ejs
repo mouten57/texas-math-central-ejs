@@ -12,19 +12,55 @@
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
-        <h1 class="display-5">This is the about page.</h1>
+        <h1 class="display-5">About Texas Math Central.</h1>
         <p class="lead">
-          Designed and created with one goal in mind: to get all the best math
-          resources in one location.
+          TMC was created with one goal in mind: to get all the best math
+          resources in one location. This site is specific to Texas 5th Grade
+          math teachers, with plans to expand in the near future. If you are a
+          5th grade math teacher, you're in the right place.
         </p>
         <p>
-          Am I logged in?....
-          <strong><%= typeof currentUser !== 'undefined' %></strong>
+          My name is Matt Outen and I have taught 5th grade for the last 6
+          years. If you need help with anything on the site, or have
+          suggestions, please feel free to
+          <a href="mailto:texasmathcentral@gmail.com">contact me.</a>
         </p>
       </header>
 
       <!-- Page Features -->
-      <section class="row text-center"></section>
+      <section class="row text-center" style="margin-bottom: 20px">
+        <div class="ui raised very padded text container segment">
+          <h2 class="ui header">Find Resources</h2>
+          <p>
+            Finding resources is as easy as heading over to our
+            <a href="/units">Units</a> page and finding whatever unit you are
+            currently in. This covers most of the 5th grade math resources. They
+            aren't listed by TEKS; they are organized into broader categories
+            that made more sense to me as a teacher.
+          </p>
+          <p></p>
+        </div>
+        <div class="ui raised very padded text container segment">
+          <h2 class="ui header">Add Your Own Resources</h2>
+          <p>
+            Have something awesome that you want to share? Go to our
+            <a href="/resources/new">add resource form</a> and share away! We
+            have the capabilities of adding pictures, docs, pdfs, or just plain
+            old links!
+          </p>
+          <p></p>
+        </div>
+        <div class="ui raised very padded text container segment">
+          <h2 class="ui header">Collaborate With Other Teachers</h2>
+          <p>
+            What's better than knowing the best way to use a resource? Add
+            comments, reply to others, or leave suggestions using our comment
+            form! Here's an example:
+            <a href="/units/boy/5c1cefaa702913998ef40142">Sample Resource</a>
+          </p>
+          <p></p>
+        </div>
+      </section>
       <!-- /.row -->
     </main>
     <!-- /.container -->
