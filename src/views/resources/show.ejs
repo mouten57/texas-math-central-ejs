@@ -1,83 +1,80 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include ../static/partials/head.ejs %>
-  </head>
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
 
-  <body>
-    <% include ../static/partials/navbar.ejs %>
+    <body>
+        <% include ../static/partials/navbar.ejs %>
 
-    <main class="ui container">
-      <% include ../static/partials/messages.ejs %>
-    
-      <a href='/units/<%= resource.unit %>/'><button style='display: inline-block' class='circular ui icon button'>
-          <i class='arrow left icon'></i>
-        </button> </a>
-        <h1 style='display: inline-block'><%= resource.name %></h1>
-      <div>Description: "<%= resource.description %>"</div>
-      <div>Type: <%= resource.type %> </div>
-      <% if((resource.link).length < 8 ) { %>
-        <div>Link: none :( </div>
-        <% } else { %> 
-      <div>Link: <a target="_blank" href='<%=resource.link %>'>Click Here</a></div>
-      <% } %>
-      
-      
-      <div>
-        <p>Preview:</p>
-        <% if(resource.s3Link) { %>
-          <% const imageTypes = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png'] %>
-          <% if(imageTypes.includes(resource.file.mimetype)) { %>
-            <a href=<%= resource.s3Link %>><img width='80%' src=<%= resource.s3Link %> /></a>
-           
-           
+        <main class="ui container">
+            <% include ../static/partials/messages.ejs %>
+
+            <a href="/units/<%= resource.unit %>/">
+                <button class="circular ui icon button" style="display: inline-block">
+                    <i class="arrow left icon"></i>
+                </button>
+            </a>
+            <h1 style="display: inline-block"><%= resource.name %></h1>
+            <div>Description: "<%= resource.description %>"</div>
+            <div>Type:
+                <%= resource.type %>
+            </div>
+            <% if((resource.link).length < 8 ) { %>
+                <div>Link: none :(
+                </div>
             <% } else { %>
-              
-        <iframe width='100%' height='350px' src='https://docs.google.com/viewer?url=<%= resource.s3Link %>&embedded=true'></iframe>
-      <p><a href=<%=resource.s3Link %>>Download</a></p>
-        <% } %>  
-        <% } else if(resource.type === "Google Doc") { %>
-          
-        <iframe
-        src="https://docs.google.com/viewer?srcid=<%= driveLink %>&pid=explorer&efh=false&a=v&chrome=false&embedded=true"
-        width="100%" height="350px"></iframe>
-        <% } else { %>
-            <p style='display: inline'><i>Preview Not available :(</i></p>
+                <div>Link:
+                    <a target="_blank" href='<%=resource.link %>'>Click Here</a>
+                </div>
             <% } %>
-      
-      </div>
-      
-    <section id='comment-list' style='width: 100%'>
-      <% if(comments.length !== 0) { %>
-        <div class="ui comments">
-          <h3 class="ui dividing header" style='margin-top: 10px'>Comments</h3>
-      <% comments.forEach((comment) => { %>
-    
-      <%- include('../comments/show.ejs', {comment}) %>
-      <% }) %>
-      </div>
-      <% } %>
-    <section id="comment-form">
-        <% if(currentUser) { %>
-        <% include ../comments/new.ejs %>
-        <% } %>
-      </section>
-    </section>
-      
-      
-      
-      
-     
-      
-      
 
 
+            <div>
+                <p>Preview:</p>
+                <% if(resource.s3Link) { %>
+                    <% const imageTypes = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png'] %>
+                    <% if(imageTypes.includes(resource.file.mimetype)) { %>
+                        <a href=<%= resource.s3Link %>><img width="80%" src=<%= resource.s3Link %>/></a>
 
-<div>
- 
-    
- 
-</div>
-    <% include ../static/partials/baseScripts.ejs %>
-  </body>
+
+                    <% } else { %>
+
+                        <iframe height="350px" src="https://docs.google.com/viewer?url=<%= resource.s3Link %>&embedded=true" width="100%"></iframe>
+                        <p>
+                            <a href=<%=resource.s3Link %>>Download</a>
+                        </p>
+                    <% } %>
+                <% } else if(resource.type === "Google Doc" && resource.link) { %>
+
+                    <iframe height="350px" src="https://docs.google.com/viewer?srcid=<%= driveLink %>&pid=explorer&efh=false&a=v&chrome=false&embedded=true" width="100%"></iframe>
+                <% } else { %>
+                    <p style="display: inline">
+                        <i>Preview Not available :(</i>
+                    </p>
+                <% } %>
+
+            </div>
+
+            <section id="comment-list" style="width: 100%">
+                <% if(comments.length !== 0) { %>
+                    <div class="ui comments">
+                        <h3 class="ui dividing header" style="margin-top: 10px">Comments</h3>
+                        <% comments.forEach((comment) => { %>
+
+                            <%- include('../comments/show.ejs', {comment}) %>
+                        <% }) %>
+                    </div>
+                <% } %>
+                <section id="comment-form">
+                    <% if(currentUser) { %>
+                        <% include ../comments/new.ejs %>
+                    <% } %>
+                </section>
+            </section>
+
+
+            <div></div>
+            <% include ../static/partials/baseScripts.ejs %></body>
+    </body>
 </html>

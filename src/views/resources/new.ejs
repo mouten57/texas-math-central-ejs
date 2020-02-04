@@ -31,21 +31,11 @@
         <div class="form-group">
           <label for="body">Unit</label>
           <select label="unit" name="unit">
-
-            <option value='boy' label='B.O.Y.' />
-            <option value='addsub' label='Addition/Multiplication' />
-            <option value='APV' label='Area/Perimeter/Volume' />
-            <option value='division' label='Long Division'' />
-            <option value='prime-composite' label='Prime & Composite Numbers' />
-            <option value='graphing' label='Graphing' />
-            <option value='decimals' label='Decimals' />
-            <option value='geometry' label='Geometry' />
-            <option value='fractions' label='Fractions' />
-            <option value='expressions-equations' label='Expressions & Equations' />
-            <option value='measurement' label='Measurement' />
-            <option value='finance' label='Personal Finance' />
-            <option value='staar-review' label='STAAR REVIEW!' />
-            <option value='random' label='Random' />
+              <% unitFields.forEach((unit) => { %>
+                <% var selected = ( lastVisited == unit.param ) ? "selected" : ""; %>
+                
+                <option value="<%= unit.param %>" label="<%= unit.name %>" <%=selected %>></option>>
+            <% }) %>
 
             
           </select>

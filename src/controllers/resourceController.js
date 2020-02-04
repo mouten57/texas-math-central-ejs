@@ -1,28 +1,43 @@
 const resourceQueries = require('../db/queries.resources');
+const unitFields = require('../views/units/unitFields');
 const fs = require('fs');
 const convertTimeStamp = require('../helpers/convertTimeStamp');
 const s3 = require('../config/aws-config');
 
+const fullUnit = (unit) => {
+      for (let i = 0; i < unitFields.length; i++){
+        if (unitFields[i].param == unit) {
+          console.log(unitFields[i].name);
+          return unitFields[i].name
+        }
+      }
+    };
+    
 module.exports = {
+
   index(req, res, next) {
     resourceQueries.getUnitResources(req.params.unit, (err, resources) => {
       if (err || resources == null) {
         res.redirect(404, '/');
       } else {
-        let header = req.params.unit;
+        let header = fullUnit(req.params.unit);
         res.render('units/show', { resources, header });
       }
     });
   },
   new(req, res, next) {
-    res.render('resources/new');
+let lastVisited = req.headers.referer.split("/units/").pop();
+
+    res.render('resources/new', {unitFields, lastVisited});
   },
   create(req, res, next) {
     if (req.file !== undefined) {
+
       s3.upload(req.file, (err, link) => {
         let newResource = {
           name: req.body.name,
           unit: req.body.unit,
+          fullUnit:fullUnit(req.body.unit),
           type: req.body.type,
           link: req.body.link,
           description: req.body.description,
@@ -52,6 +67,7 @@ module.exports = {
       let newResource = {
         name: req.body.name,
         unit: req.body.unit,
+        fullUnit: fullUnit(req.body.unit),
         type: req.body.type,
         link: req.body.link,
         description: req.body.description,
