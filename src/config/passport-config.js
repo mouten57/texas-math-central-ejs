@@ -38,7 +38,7 @@ passport.use(
       if (existingUser) {
         //we already have a record with the given profile ID
         //null means we are all good! then return the user file!
-
+        console.log(existingUser)
         return done(null, existingUser);
       }
 
