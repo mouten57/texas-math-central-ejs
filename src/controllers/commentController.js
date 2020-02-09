@@ -4,6 +4,7 @@ const convertTimeStamp = require('../helpers/convertTimeStamp');
 module.exports = {
   create(req, res, next) {
     const newComment = {
+      //resource added in with query using resource_id
       resource_id: req.params.resourceId,
       posted: convertTimeStamp(Date.now()),
       _user: req.user,
