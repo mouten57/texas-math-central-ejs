@@ -24,11 +24,9 @@ module.exports = {
 
         Resource.find({ _user: user }).then(resources => {
           result['resources'] = resources;
-
           Comment.find({ _user: user })
-            .populate('resource_id')
             .then(comments => {
-              result['comments'] = comments;
+              result['comments'] = comments;            
               callback(null, result);
             });
         });

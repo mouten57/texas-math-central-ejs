@@ -4,13 +4,11 @@ const userSchema = require('./User');
 
 const commentSchema = new Schema({
   posted: String,
+  resource: Object,
+  _user: Object,
   resource_id: {
     type: Schema.Types.ObjectId,
     ref: 'resources'
-  },
-  _user: {
-    type: Schema.Types.ObjectId,
-    ref: 'users'
   },
   body: String
 });

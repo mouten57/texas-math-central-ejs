@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 const Comment = mongoose.model('comments');
+const Resource = mongoose.model('resources');
 
 module.exports = {
-  createComment(newComment, callback) {
+  async createComment(newComment, callback) {
+    const resource = await Resource.findOne({ _id: newComment.resource_id });
+    //user data already available in memory while resource is not
     return Comment.create({
       resource_id: newComment.resource_id,
+      resource,
       posted: newComment.posted,
       _user: newComment._user,
       body: newComment.body

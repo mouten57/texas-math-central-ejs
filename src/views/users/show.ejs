@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <% include ../static/partials/head.ejs %>
-  </head>
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
 
-  <body>
-    <% include ../static/partials/navbar.ejs %>
-    <!-- Page Content -->
-    <main class="container">
-      <% include ../static/partials/messages.ejs %>
+    <body>
+        <% include ../static/partials/navbar.ejs %>
+        <!-- Page Content -->
+        <main class="container">
+            <% include ../static/partials/messages.ejs %>
 
-      <!-- Jumbotron Header -->
-      <header class="jumbotron my-4">
-        <h1 class="display-5" style="display: inline; margin-left: 5px">
-          <%= `${result.user.nickname}'s profile page` %>
-        </h1>
+            <!-- Jumbotron Header -->
+            <header class="jumbotron my-4">
+                <h1 class="display-5" style="display: inline; margin-left: 5px">
+                    <%= `${result.user.nickname}'s profile page` %>
+                </h1>
 
-        <p></p>
-      </header>
+                <p></p>
+            </header>
 
-      <!-- Page Features -->
+            <!-- Page Features -->
 
-      <hr />
-      <h3>Latest Resources</h3>
+            <hr/>
+            <h3>Latest Resources</h3>
 
-      <ul class="list-unstyled">
-        <% if(result.resources) { %> <% result.resources.forEach((resource) => {
+            <ul class="list-unstyled">
+                <% if(result.resources) { %>
+                    <% result.resources.forEach((resource) => {
         %>
 
-        <li>
-          <a href="/units/<%= resource.unit %>/<%= resource._id %>">
-            <%= resource.name %>
-          </a>
-        </li>
-        <% }) %> <% } %>
-      </ul>
-      <hr />
-      <h3>Latest Comments</h3>
-      <ul class="list-unstyled">
-        <% if(result.comments) { %> <% result.comments.forEach((comment) => { %>
-        <% console.log(comment) %>
-        <li>
-          <span>Resource: </span>
-          <a
-            href="/units/<%= comment.resource_id.unit %>/<%= comment.resource_id._id %>"
-          >
-            <%= comment.resource_id.name %>
-          </a>
-          <p>Comment: <%= comment.body %></p>
-        </li>
-        <hr />
-        <% }) %> <% } %>
-      </ul>
+                        <li>
+                            <a href="/units/<%= resource.unit %>/<%= resource._id %>">
+                                <%= resource.name %>
+                            </a>
+                        </li>
+                    <% }) %>
+                <% } %>
+            </ul>
+            <hr/>
+            <h3>Latest Comments</h3>
+            <ul class="list-unstyled">
+                <% if(result.comments) { %>
+                    <% result.comments.forEach((comment) => { %>
+                        <li>
+                            <span>Resource:
+                            </span>
+                            <a href="/units/<%= comment.resource.unit %>/<%= comment.resource_id %>">
+                                <%= comment.resource.name %>
+                            </a>
+                            <p>Comment:
+                                <%= comment.body %></p>
+                        </li>
+                        <hr/>
+                    <% }) %>
+                <% } %>
+            </ul>
 
-      <!-- /.row -->
-    </main>
-    <!-- /.container -->
-    <% include ../static/partials/baseScripts.ejs %>
-  </body>
+            <!-- /.row -->
+        </main>
+        <!-- /.container -->
+        <% include ../static/partials/baseScripts.ejs %>
+    </body>
 </html>

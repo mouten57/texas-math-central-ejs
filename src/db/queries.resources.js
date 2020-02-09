@@ -20,9 +20,8 @@ module.exports = {
     const resource = await Resource.findOne({ _id });
     resource.populate('_user');
     result['resource'] = resource;
-    const comments = await Comment.find({ resource_id: _id }).populate('_user');
+    const comments = await Comment.find({ resource_id: _id })
     result['comments'] = comments;
-    console.log(result)
     callback(null, result);
   },
   addResource(newResource, callback) {
