@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server.js"
+    "client": "cd client && npm start",
+    "start": "nodemon src/server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm start\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,7 @@
   "dependencies": {
     "aws-sdk": "^2.373.0",
     "body-parser": "^1.18.3",
+    "concurrently": "^5.1.0",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
