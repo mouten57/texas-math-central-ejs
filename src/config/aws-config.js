@@ -30,8 +30,8 @@ module.exports = {
       };
       s3.upload(params, (s3Err, data) => {
         if (s3Err) callback(s3Err);
-        callback(null, data.Location);
+        callback(null, data);
       });
     });
-  }
+  },
 };

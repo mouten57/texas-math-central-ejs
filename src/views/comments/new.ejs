@@ -1,18 +1,41 @@
-<form
-  class="ui reply form"
-  action="/api/units/<%= resource.unit %>/<%= resource._id %>/comments/create"
-  method="post"
->
-  <label for="body">New Comment</label>
-  <div class="field">
-    <textarea rows="2" name="body" placeholder="Enter comment"></textarea>
-  </div>
+<style>
+.button-container form,
+.button-container form div {
+    display: inline;
+}
 
-  <button
-    type="submit"
-    style="margin-bottom: 20px"
-    class="ui blue labeled submit icon button"
-  >
-    <i class="icon edit"></i> Submit
-  </button>
-</form>
+.button-container button {
+    display: inline;
+    vertical-align: middle;
+}
+
+button {
+    margin-top: 12px !important;
+}
+</style>
+
+<div class="button-container">
+    <form action="/units/<%= resource.unit %>/<%= resource._id %>/comments/create" class="ui reply form" method="post">
+        <label for="body">New Comment</label>
+        <div class="field">
+            <textarea name="body" placeholder="Enter comment" rows="2"></textarea>
+        </div>
+        <div class="button-wrapper">
+            <button class="ui blue labeled submit icon button" style="margin-bottom: 20px" type="submit">
+                <i class="icon edit"></i>
+                Submit
+            </button>
+        </div>
+
+    </form>
+    <% if(user.googleId == "108228571389908478084") { %>
+        <form action="/units/<%= resource.unit %>/<%= resource._id %>/destroy" method="post">
+            <div class="button-wrapper">
+                <button class="ui red labeled submit icon button" style="margin-bottom: 20px" type="submit">
+                    <i class="icon delete"></i>
+                    Delete
+                </button>
+            </div>
+        </form>
+    <% } %>
+</div>

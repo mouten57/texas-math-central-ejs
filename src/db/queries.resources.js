@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 const Resource = mongoose.model('resources');
 const Comment = mongoose.model('comments');
+var AWS = require('aws-sdk');
+
+var s3 = new AWS.S3({
+  apiVersion: '2006-03-01',
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 
 module.exports = {
   getUnitResources(unit, callback) {
@@ -25,5 +32,24 @@ module.exports = {
         callback(null, resource);
       })
       .catch(err => callback(err));
+  },
+  async destroyResource(_id, callback) {
+    const resource = await Resource.findOne({ _id });
+    if(resource.s3Object){
+    let s3Object = resource.s3Object;
+   
+ s3.deleteObject({Bucket:s3Object.Bucket, Key:s3Object.Key }, function(err, data) {
+   if (err) console.log(err, err.stack); // an error occurred
+   else     console.log(data);           // successful response
+ });
+
+    }
+    return Resource.deleteOne({ _id })
+    .then(resource => {
+      callback(null, resource);
+    })
+    .catch(err => {
+          callback(err);
+        });
   }
 };

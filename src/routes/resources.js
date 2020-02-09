@@ -12,5 +12,6 @@ module.exports = app => {
     processImage,
     resourceController.create
   );
+  app.post('/units/:unit/:resourceId/destroy', resourceController.destroy);
   app.get('/units/:unit/:resourceId/download', resourceController.download);
 };

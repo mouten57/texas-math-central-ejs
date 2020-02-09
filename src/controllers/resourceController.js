@@ -7,7 +7,6 @@ const s3 = require('../config/aws-config');
 const fullUnit = (unit) => {
       for (let i = 0; i < unitFields.length; i++){
         if (unitFields[i].param == unit) {
-          console.log(unitFields[i].name);
           return unitFields[i].name
         }
       }
@@ -33,7 +32,7 @@ let lastVisited = req.headers.referer.split("/units/").pop();
   create(req, res, next) {
     if (req.file !== undefined) {
 
-      s3.upload(req.file, (err, link) => {
+      s3.upload(req.file, (err, data) => {
         let newResource = {
           name: req.body.name,
           unit: req.body.unit,
@@ -44,7 +43,8 @@ let lastVisited = req.headers.referer.split("/units/").pop();
           _user: req.user,
           created: convertTimeStamp(Date.now()),
           file: req.file,
-          s3Link: link
+          s3Object: data,
+          s3Link: data.Location
         };
 
         resourceQueries.addResource(newResource, (err, resource) => {
@@ -87,6 +87,7 @@ let lastVisited = req.headers.referer.split("/units/").pop();
     resourceQueries.getResource(req.params.resourceId, (err, result) => {
       let resource = result.resource;
       let comments = result.comments;
+      let user = req.user;
       if (err || resource == null) {
         res.redirect(404, '/');
       } else {
@@ -104,9 +105,19 @@ let lastVisited = req.headers.referer.split("/units/").pop();
               : link.split('/')[5];
         }
 
-        res.render('resources/show', { resource, driveLink, comments });
+        res.render('resources/show', { resource, driveLink, comments, user });
       }
     });
+  },
+
+     destroy(req, res, next) {
+    resourceQueries.destroyResource(req.params.resourceId, (err,result ) =>{
+if (err || result == null) {
+        res.redirect(500, `/units/${req.params.unit}/${req.params.resourceId}`);
+      } else {
+        res.redirect(303, `/units/${req.params.unit}`);
+      } 
+    })
   },
 
   download(req, res, next) {

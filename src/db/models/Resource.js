@@ -11,6 +11,7 @@ const resourceSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: 'users' },
   created: String,
   file: Object,
+  s3Object: Object,
   s3Link: String
 });
 
