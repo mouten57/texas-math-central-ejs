@@ -24,8 +24,9 @@
                 <div>Link: none :(
                 </div>
             <% } else { %>
+                <% console.log(resource.link) %>
                 <div>Link:
-                    <a target="_blank" href='<%=resource.link %>'>Click Here</a>
+                    <a href="<%=resource.link %>" target="_blank">Click Here</a>
                 </div>
             <% } %>
 

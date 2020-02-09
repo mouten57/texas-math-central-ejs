@@ -30,6 +30,7 @@ let lastVisited = req.headers.referer.split("/units/").pop();
     res.render('resources/new', {unitFields, lastVisited});
   },
   create(req, res, next) {
+    const link = req.body.link.includes("http") ? req.body.link : `//${req.body.link}`
     if (req.file !== undefined) {
 
       s3.upload(req.file, (err, data) => {
@@ -38,7 +39,7 @@ let lastVisited = req.headers.referer.split("/units/").pop();
           unit: req.body.unit,
           fullUnit:fullUnit(req.body.unit),
           type: req.body.type,
-          link: req.body.link,
+          link,
           description: req.body.description,
           _user: req.user,
           created: convertTimeStamp(Date.now()),
@@ -69,7 +70,7 @@ let lastVisited = req.headers.referer.split("/units/").pop();
         unit: req.body.unit,
         fullUnit: fullUnit(req.body.unit),
         type: req.body.type,
-        link: req.body.link,
+        link,
         description: req.body.description,
         _user: req.user,
         created: convertTimeStamp(Date.now())
