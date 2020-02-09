@@ -95,7 +95,7 @@ let lastVisited = req.headers.referer.split("/units/").pop();
           let downloadLink = `/units/${resource.unit}/${resource._id}/download`;
           resource.dl = downloadLink;
         }
-        if (resource.type === 'Google Doc' && resource.link.length > 7) {
+        if (resource.type === 'Google Doc' && resource.link.length > 7 && resource.link.includes("drive.google.com")) {
           let link = resource.link;
           var v1Identifier = link.split('/')[3].slice(0, 8);
 
